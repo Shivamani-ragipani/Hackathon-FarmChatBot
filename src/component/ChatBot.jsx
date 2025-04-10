@@ -177,7 +177,7 @@ const ChatBot = () => {
 
   const onLogout = () => {
     setUserInfo(null);
-    // navigate('/');
+    // navigate('/login');
   };
   
 
@@ -404,6 +404,31 @@ background: linear-gradient(135deg, #2e7d32, #388e3c);
   font-size: 0.9rem;
   margin-right: 10px;
   color: #333;
+}
+
+@media (max-width: 600px) {
+  .chat-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+  }
+
+  .chat-header h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .header-controls {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .language-select,
+  .stop-button {
+    width: 100%;
+  }
 }
 
   `;
