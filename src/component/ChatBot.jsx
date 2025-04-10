@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { FaMicrophone, FaMicrophoneSlash, FaVolumeUp, FaVolumeMute, FaStop } from 'react-icons/fa';
+// import { useNavigate } from 'react-router-dom';
+
+
 
 const ChatBot = () => {
+
   const GEMINI_API_KEY = 'AIzaSyCnZRF-PjtViM_lN6xcM1QUZZatgaK6Jd0';
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -16,6 +20,22 @@ const ChatBot = () => {
   const messagesEndRef = useRef(null);
   const recognition = useRef(null);
   const synthesis = useRef(null);
+  const [userInfo, setUserInfo] = useState(null);
+  // const navigate = useNavigate();
+
+  
+
+
+  useEffect(() => {
+    // Simulating fetch (replace this with your real logic)
+    const user = {
+      name: "Shivamani",
+      email: "shivamani@gmail.com"
+    };
+    setUserInfo(user);
+  }, []);
+  
+
 
   const languages = {
     hi: 'Hindi',
@@ -32,6 +52,8 @@ const ChatBot = () => {
     ta: { lang: 'ta-IN', rate: 0.85 },
     ur: { lang: 'ur-PK', rate: 0.8 }
   };
+
+  
 
   // Speech Recognition Setup
   useEffect(() => {
@@ -153,48 +175,82 @@ const ChatBot = () => {
     }
   };
 
+  const onLogout = () => {
+    setUserInfo(null);
+    // navigate('/');
+  };
+  
+
   // UI Styling
   const styles = `
     .chat-container {
-      max-width: 800px;
-      margin: 2rem auto;
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      background: white;
-      font-family: 'Segoe UI', system-ui;
-    }
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    .chat-header {
-      background: linear-gradient(135deg, #2e7d32, #388e3c);
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-    }
+.chat-header {
+background: linear-gradient(135deg, #2e7d32, #388e3c);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid #ddd;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-    .header-controls {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
+.chat-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  white-space: nowrap;
+  color: white;
+}
 
-    .stop-button {
-      background: #dc3545;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.3s ease;
-    }
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-    .stop-button:hover {
-      background: #bb2d3b;
-    }
+.language-select {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.stop-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background-color: transparent;
+  border: 1px solid #dc3545;
+  border-radius: 6px;
+  color: #dc3545;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.stop-button:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.btn-danger {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
 
     .chat-body {
       height: 60vh;
@@ -272,7 +328,7 @@ const ChatBot = () => {
     .language-select {
       background: rgba(255,255,255,0.15);
       border: 1px solid rgba(255,255,255,0.3);
-      color: white;
+      color: black;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
       cursor: pointer;
@@ -343,6 +399,13 @@ const ChatBot = () => {
     .btn-success:hover {
       background: #1b5e20;
     }
+
+    .user-info {
+  font-size: 0.9rem;
+  margin-right: 10px;
+  color: #333;
+}
+
   `;
 
   useEffect(() => {
@@ -511,6 +574,7 @@ const ChatBot = () => {
       <div className="chat-header">
         <h2>🌾 Kisan Saathi</h2>
         <div className="header-controls">
+
           <select
             className="language-select"
             value={selectedLanguage}
@@ -523,6 +587,11 @@ const ChatBot = () => {
           <button className="stop-button" onClick={stopChat}>
             <FaStop /> Stop Chat
           </button>
+
+          <button className="btn btn-danger btn-sm ms-2" onClick={onLogout}>
+  Logout
+</button>
+
         </div>
       </div>
 

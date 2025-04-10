@@ -6,7 +6,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {
-    // This can be replaced with actual authentication logic
+    // Handle actual login logic or API call here if needed
     setIsLoggedIn(true);
   };
 
