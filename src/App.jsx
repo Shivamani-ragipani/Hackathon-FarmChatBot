@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import ChatBot from "./component/ChatBot";
 import LoginPage from "./component/LoginPage";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogin = () => {
-    // Handle actual login logic or API call here if needed
-    setIsLoggedIn(true);
-  };
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   return (
-    <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-      <div className="container" style={{ maxWidth: '600px' }}>
-        {!isLoggedIn ? (
-          <LoginPage onLogin={handleLogin} />
-        ) : (
-          <ChatBot />
-        )}
-      </div>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={<Navigate to={"/Login"} />}
+      />
+      <Route
+        path="/login"
+        element={<LoginPage onLogin={() => setIsLoggedIn(true)} />}
+      />
+      <Route
+        path="/chat"
+        element={isLoggedIn ? <ChatBot onLogout={() => setIsLoggedIn(false)} /> : <Navigate to="/login" />}
+      />
+    </Routes>
   );
 }
 

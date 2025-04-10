@@ -1,152 +1,138 @@
 import React, { useState } from 'react';
 import './LoginPage.css';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = ({ onLogin }) => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-  const [error, setError] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+const LoginPage = ({onLogin}) => {
+  const [isLoginActive, setIsLoginActive] = useState(true);
 
   const toggleForm = () => {
-    setIsLogin(!isLogin);
-    setError('');
+    setIsLoginActive(!isLoginActive);
   };
 
-  const validateForm = () => {
-    if (isLogin) {
-      if (!formData.email || !formData.password) {
-        setError('Please fill in all fields');
-        return false;
-      }
-    } else {
-      if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
-        setError('Please fill in all fields');
-        return false;
-      }
-      if (formData.password !== formData.confirmPassword) {
-        setError('Passwords do not match');
-        return false;
-      }
-      if (formData.password.length < 6) {
-        setError('Password must be at least 6 characters');
-        return false;
-      }
-    }
-    return true;
-  };
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      // In a real app, you would handle authentication here
-      console.log('Form submitted:', formData);
-      // Simulate successful login/signup
-      onLogin();
-    }
-  };
+const handleLogin = () => {
+  // Add form validation/authentication here if needed
+  onLogin();
+  navigate('/chat');
+};
+
 
   return (
-    <div className="login-container">
-      <div className="login-header">
-  <div className="header-left">
-    <span className="logo-icon">🌾</span>
-    <h1 className="brand-title">Kisan Saathi</h1>
-  </div>
-</div>
-
-
-      <div className="form-container">
-        <div className="form-header">
-          <h2>{isLogin ? 'Login to Your Account' : 'Create New Account'}</h2>
-          <p>
-            {isLogin 
-              ? 'Access agricultural insights and support' 
-              : 'Join our community of farmers and agricultural experts'}
-          </p>
+    <div className={`container ${isLoginActive ? '' : 'sign-up-active'}`}>
+      <div className="welcome-section">
+        <div className="logo">
+          <img src="../../public/farm.png" alt="Kissan Sathi Logo" />
         </div>
+        <h1>Welcome to Kissan Sathi</h1>
+        <p>Your smart farming companion</p>
+        <div className="feature-icons">
+          <div className="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </div>
+          <div className="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              <circle cx="12" cy="16" r="1"></circle>
+            </svg>
+          </div>
+          <div className="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
 
-        {error && <div className="error-message">{error}</div>}
-
-        <form onSubmit={handleSubmit}>
-          {!isLogin && (
-            <div className="form-group">
-              <label htmlFor="name">Full Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Enter your full name"
-              />
+      <div className="forms-container">
+        <div className="login-signup-forms">
+          {/* Login Form */}
+          <div className="login-form form">
+            <div className="form-header">
+              <div className="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <h2>Login Account</h2>
+              <p>Welcome back to our farming community</p>
             </div>
-          )}
+            <div className="form-group">
+              <div className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <input type="email" placeholder="Email Address" />
+            </div>
+            <div className="form-group">
+              <div className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <input type="password" placeholder="Password" />
+            </div>
+            <button className="submit-btn" onClick={handleLogin}>Login</button>
 
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-            />
+            <p className="toggle-text">
+              Don't have an account? <span className="toggle-link" onClick={toggleForm}>Sign up here <span className="arrow">→</span></span>
+            </p>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-            />
-          </div>
-
-          {!isLogin && (
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="Confirm your password"
-              />
+          {/* Sign Up Form */}
+          <div className="signup-form form">
+            <div className="form-header">
+              <div className="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="8.5" cy="7" r="4"></circle>
+                  <line x1="20" y1="8" x2="20" y2="14"></line>
+                  <line x1="23" y1="11" x2="17" y2="11"></line>
+                </svg>
+              </div>
+              <h2>Create Account</h2>
+              <p>Join our farming community</p>
             </div>
-          )}
-
-          <button type="submit" className="submit-btn">
-            {isLogin ? 'Login' : 'Sign Up'}
-          </button>
-        </form>
-
-        <div className="form-footer">
-          <p>
-            {isLogin 
-              ? "Don't have an account?" 
-              : "Already have an account?"}
-            <button 
-              type="button" 
-              className="toggle-btn" 
-              onClick={toggleForm}
-            >
-              {isLogin ? 'Sign Up' : 'Login'}
-            </button>
-          </p>
+            <div className="form-group">
+              <div className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <input type="text" placeholder="Full Name" />
+            </div>
+            <div className="form-group">
+              <div className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <input type="email" placeholder="Email Address" />
+            </div>
+            <div className="form-group">
+              <div className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <input type="password" placeholder="Password" />
+            </div>
+            <button className="submit-btn">Sign Up</button>
+            <p className="toggle-text">
+              Already have an account? <span className="toggle-link" onClick={toggleForm}>Login here <span className="arrow">→</span></span>
+            </p>
+          </div>
         </div>
       </div>
     </div>

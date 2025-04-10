@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { FaMicrophone, FaMicrophoneSlash, FaVolumeUp, FaVolumeMute, FaStop } from 'react-icons/fa';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -21,7 +21,7 @@ const ChatBot = () => {
   const recognition = useRef(null);
   const synthesis = useRef(null);
   const [userInfo, setUserInfo] = useState(null);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   
 
@@ -177,7 +177,7 @@ const ChatBot = () => {
 
   const onLogout = () => {
     setUserInfo(null);
-    // navigate('/login');
+    navigate('/login');
   };
   
 
