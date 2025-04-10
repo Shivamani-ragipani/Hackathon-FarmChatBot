@@ -57,19 +57,12 @@ const LoginPage = ({ onLogin }) => {
   return (
     <div className="login-container">
       <div className="login-header">
-        <div className="logo-container">
-          <span className="logo-icon">🌾</span>
-          <h1>Kisan Saathi</h1>
-        </div>
-        <div className="language-selector">
-          <select defaultValue="English">
-            <option value="English">English</option>
-            <option value="Hindi">हिंदी</option>
-            <option value="Punjabi">ਪੰਜਾਬੀ</option>
-            <option value="Marathi">मराठी</option>
-          </select>
-        </div>
-      </div>
+  <div className="header-left">
+    <span className="logo-icon">🌾</span>
+    <h1 className="brand-title">Kisan Saathi</h1>
+  </div>
+</div>
+
 
       <div className="form-container">
         <div className="form-header">

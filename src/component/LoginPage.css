@@ -10,29 +10,49 @@
   /* Header styles */
   .login-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #2e7d32;
+    justify-content: center;
+    background: linear-gradient(135deg, #2e7d32, #388e3c);
+    padding: 16px 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
     color: white;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
   }
   
-  .logo-container {
+  .header-left {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 10px;
   }
   
   .logo-icon {
-    font-size: 1.5rem;
+    font-size: 28px;
   }
   
-  .login-header h1 {
+  .brand-title {
+    font-size: 24px;
+    font-weight: bold;
     margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
+    color: white;
   }
+  
+  /* Responsive for mobile */
+  @media (max-width: 600px) {
+    .brand-title {
+      font-size: 20px;
+    }
+  
+    .logo-icon {
+      font-size: 24px;
+    }
+  
+    .login-header {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+  
   
   .language-selector select {
     padding: 0.5rem 1rem;
